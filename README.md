@@ -179,3 +179,25 @@ And query the current level with:
 ```go
 currentLevel := logger.GetLevel()
 ```
+
+## Contributing
+
+To contribute to project, follow these steps:
+
+1. Clone the repository:
+
+```bash
+git clone --depth 1 https://github.com/sivaosorg/loggy.git
+```
+
+2. Navigate to the project directory:
+
+```bash
+cd loggy
+```
+
+3. Prepare the project environment:
+
+```bash
+go mod tidy
+```
