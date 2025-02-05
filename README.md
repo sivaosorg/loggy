@@ -2,7 +2,7 @@
 
 `loggy` is a minimalist logging library for Go that provides configurable logging with multiple severity levels, formatted messages, caller location tracking, and thread-safe operations. It is designed to be lightweight and highly customizable to suit various logging needs.
 
-### Features
+## Features
 
 - **Severity Levels:** Supports five levels of logging:
   - `Debug`
@@ -16,11 +16,11 @@
 - **Thread-Safe:** Supports concurrent logging by locking the writer if it implements a locker interface.
 - **Multiple Logger Instances:** Create package-specific logger instances or use the provided default logger.
 
-### Requirements
+## Requirements
 
 - Go version 1.23 or higher
 
-### Installation
+## Installation
 
 To start using `loggy`, run `go get`:
 
@@ -35,9 +35,9 @@ To start using `loggy`, run `go get`:
   go get -u github.com/sivaosorg/loggy@latest
   ```
 
-### Getting started
+## Getting started
 
-#### Getting loggy
+### Getting loggy
 
 With [Go's module support](https://go.dev/wiki/Modules#how-to-use-modules), `go [build|run|test]` automatically fetches the necessary dependencies when you add the import in your code:
 
@@ -45,7 +45,7 @@ With [Go's module support](https://go.dev/wiki/Modules#how-to-use-modules), `go 
 import "github.com/sivaosorg/loggy"
 ```
 
-#### Quick Start
+### Quick Start
 
 Here is a simple example that demonstrates how to use `loggy`:
 
@@ -84,9 +84,9 @@ func main() {
 }
 ```
 
-#### Usage
+### Usage
 
-#### Creating a Logger:
+#### Creating a Logger
 
 Use the `New` function to create a custom logger instance:
 
