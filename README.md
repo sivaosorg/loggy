@@ -83,3 +83,99 @@ func main() {
 	// logger.Fatal("Critical error, shutting down!")
 }
 ```
+
+#### Usage
+
+#### Creating a Logger:
+
+Use the `New` function to create a custom logger instance:
+
+```go
+logger := loggy.New(": my-service:", os.Stdout, loggy.DebugIssuer,
+		loggy.WithUTC(true),
+		loggy.WithTimeFormat("2006-01-02 15:04:05.000000"),
+		loggy.WithSeverityNames([]string{"DEBUG: ", "INFO: ", "WARN: ", "ERROR: ", "FATAL: "}),
+	)
+```
+
+Parameters:
+
+- **name**: Must be in the format `": name:"`. For example, `": my-service:"`.
+- **writer**: An `io.Writer` where log messages will be sent (e.g., `os.Stdout`).
+- **minLevel**: The minimum severity level to log. Messages below this level are ignored.
+- **Options**: Additional configuration options provided via option functions (e.g., `WithUTC`, `WithTimeFormat`, `WithSeverityNames`).
+
+#### Logging Messages
+
+Each logging method supports an optional caller depth argument (of type `Caller`) to specify how many stack frames to skip when reporting the caller's file and line number. If no caller is needed, simply omit it.
+
+- **Direct Logging**:
+
+```go
+logger.Debug("This is a debug message.")
+logger.Info("Service started successfully.")
+logger.Warn("This is a warning message.")
+logger.Error("An error occurred.")
+// logger.Fatal("A fatal error occurred.") // Will panic after logging.
+```
+
+- **Formatted Logging:**
+
+```go
+logger.Debugf("Debug info: %v", someValue)
+logger.Infof("User %s logged in", username)
+logger.Warnf("Cache miss for key: %s", cacheKey)
+logger.Errorf("Error processing request: %s", err)
+// logger.Fatalf("Fatal error: %s", err) // Will panic after logging.
+```
+
+#### Caller Depth Control
+
+To include a custom caller depth (e.g., when wrapping log calls in your own functions), provide a `Caller` value as the first argument:
+
+```go
+// Caller depth set to 1.
+logger.Info(loggy.Caller(1), "Called from a wrapper function")
+```
+
+#### Using the Default Logger
+
+`loggy` also provides a package-level default logger. You can use it directly with convenience functions:
+
+```go
+package main
+
+import (
+    "github.com/sivaosorg/loggy"
+)
+
+func main() {
+    loggy.Debug("Using default logger for debug")
+    loggy.Infof("Hello, %s!", "world")
+    // loggy.Fatal("This is a fatal message") // Will panic.
+}
+```
+
+#### Updating the Writer
+
+To safely change the output destination of a logger, use the `UpdateWriter` method:
+
+```go
+if ok := logger.UpdateWriter(newWriter); !ok {
+    logger.Error("Writer update failed: incompatible locker interface")
+}
+```
+
+#### Setting the Logging Level
+
+Adjust the minimum severity level at runtime:
+
+```go
+logger.SetLevel(loggy.InfoIssuer)
+```
+
+And query the current level with:
+
+```go
+currentLevel := logger.GetLevel()
+```
